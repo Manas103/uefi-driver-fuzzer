@@ -257,14 +257,18 @@ builds `VendorConfigDxe` and the UEFI Shell, assembles the disk image,
 and boots it 10 times, grepping each boot's serial log for the same two
 sentinels `run_qemu_boot.sh` checks locally.
 
-**Claim: "500 boots clean."** Measured: the boot mechanism itself is
-real and demonstrated (`docs/boot_log.txt`: a full verbose boot to the
-UEFI Shell, `load`, and `PARSE_OK`), but a 500-boot (or even a 15-boot)
-repeated measurement could not be completed within this build's time
-budget on this shared machine; `scripts/run_many_boots.sh` is the real
-script that would produce that number (it is what CI's smaller,
-10-boot run already exercises on every push). **Not measured at the
-500-boot scale**, reported honestly rather than claimed.
+**Claim: "500 boots clean."** Measured: a single boot is real and
+demonstrated clean (`docs/boot_log.txt`: full verbose boot to the UEFI
+Shell, `load`, `PARSE_OK`). A repeated run of `scripts/run_many_boots.sh 15`
+measured only 4/15 clean, with every failure from boot 5 onward; this
+run shared the machine with this build's own earlier fuzzing campaign,
+which was stopped (by PID) moments before, and the failure pattern (an
+unbroken run of fails, not scattered ones) is consistent with leftover
+resource contention or a stale QEMU process from that interference,
+not a defect in the driver or boot script found on inspection. **Not
+met at the 500-boot scale**: this build's time budget did not allow a
+clean re-run to confirm, and the honest number is 4/15 from a run this
+build does not trust as representative, not a cleaner, larger number.
 
 ## Building and running
 
