@@ -1,0 +1,80 @@
+name: unit tests, fuzz smoke, and OVMF boot gate
+
+on:
+  push:
+  pull_request:
+
+env:
+  EDK2_REF: edk2-stable202408
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: gcc -O1 -g -fsanitize=address -I VendorConfigPkg/Common tests/test_valid_parsing.c VendorConfigPkg/Common/VendorConfigParser.c -DVCP_HOST_BUILD -o test_valid_parsing
+      - run: ./test_valid_parsing
+      - run: gcc -O1 -g -fsanitize=address -I VendorConfigPkg/Common tests/test_regressions.c VendorConfigPkg/Common/VendorConfigParser.c -DVCP_HOST_BUILD -o test_regressions
+      - run: ./test_regressions
+
+  fuzz-smoke:
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+      - uses: actions/checkout@v4
+      - run: clang -g -O1 -DVCP_HOST_BUILD -fsanitize=fuzzer,address -I VendorConfigPkg/Common fuzz/fuzz_harness.c VendorConfigPkg/Common/VendorConfigParser.c -o fuzz/fuzzer
+      # Not the 8-15-minute campaign that found the 7 defects (that was
+      # run once, locally, see README and docs/); this is a 60-second
+      # regression smoke test that the harness still builds, still
+      # runs, and the known-fixed crashers (fuzz/crashes/) still don't
+      # crash the now-fixed parser.
+      - run: cd fuzz && ./fuzzer -max_total_time=60 corpus
+      - run: cd fuzz && for f in crashes/*; do ./fuzzer "$f" || exit 1; done
+
+  ovmf-boot-gate:
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+      - uses: actions/checkout@v4
+      - name: install toolchain
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq qemu-system-x86 ovmf nasm iasl uuid-dev build-essential python3 git
+      - name: clone edk2
+        run: |
+          git clone --depth 1 --branch "$EDK2_REF" https://github.com/tianocore/edk2.git /tmp/edk2
+          cd /tmp/edk2
+          git submodule update --init --depth 1 -- \
+            BaseTools/Source/C/BrotliCompress/brotli \
+            MdePkg/Library/MipiSysTLib/mipisyst
+      - name: build BaseTools
+        run: |
+          cd /tmp/edk2
+          source edksetup.sh BaseTools
+          make -C BaseTools/Source/C -j"$(($(nproc) / 2))"
+      - name: link this repo into the edk2 workspace
+        run: ln -sfn "$GITHUB_WORKSPACE" /tmp/uefi-driver-fuzzer
+      - name: build VendorConfigDxe
+        run: |
+          cd /tmp/edk2
+          source edksetup.sh BaseTools
+          export PACKAGES_PATH="/tmp/edk2:/tmp/uefi-driver-fuzzer"
+          build -p VendorConfigPkg/VendorConfigPkg.dsc -a X64 -t GCC5 -b DEBUG
+      - name: build UEFI Shell
+        run: |
+          cd /tmp/edk2
+          source edksetup.sh BaseTools
+          export PACKAGES_PATH="/tmp/edk2:/tmp/uefi-driver-fuzzer"
+          build -p ShellPkg/ShellPkg.dsc -a X64 -t GCC5 -b DEBUG -m ShellPkg/Application/Shell/Shell.inf
+      - name: assemble disk image
+        env:
+          SHELL_EFI: /tmp/edk2/Build/Shell/DEBUG_GCC5/X64/ShellPkg/Application/Shell/Shell/OUTPUT/Shell.efi
+          DXE_EFI: /tmp/edk2/Build/VendorConfigPkg/DEBUG_GCC5/X64/VendorConfigDxe.efi
+        run: bash scripts/build_disk_image.sh
+      - name: boot OVMF (10 boots, not the full 500 measured locally)
+        run: |
+          for i in $(seq 1 10); do
+            bash scripts/run_qemu_boot.sh -v | tee /tmp/boot_$i.log
+            grep -q "VendorConfigDxe: PARSE_OK" /tmp/boot_$i.log
+            grep -q "BOOT_SCRIPT_DONE" /tmp/boot_$i.log
+          done

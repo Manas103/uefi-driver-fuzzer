@@ -1,0 +1,31 @@
+## @file
+#  DXE driver that parses a vendor configuration table at boot using
+#  the same VendorConfigParser.c the host fuzz harness runs.
+##
+
+[Defines]
+  INF_VERSION    = 0x00010005
+  BASE_NAME      = VendorConfigDxe
+  FILE_GUID      = 3d6f8a2b-5c1e-4f9a-8b7d-6e4a2c1f9b3e
+  MODULE_TYPE    = DXE_DRIVER
+  VERSION_STRING = 0.1
+  ENTRY_POINT    = VendorConfigDxeEntry
+
+[Sources]
+  VendorConfigDxe.c
+  ../Common/VendorConfigParser.c
+  ../Common/VendorConfigParser.h
+
+[Packages]
+  MdePkg/MdePkg.dec
+  VendorConfigPkg/VendorConfigPkg.dec
+
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiLib
+  PrintLib
+  BaseLib
+
+[Depex]
+  TRUE

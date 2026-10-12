@@ -1,0 +1,55 @@
+=== Attempt 1: 480s, -fork=6 ===
+INFO: Running with entropic power schedule (0xFF, 100).
+INFO: Seed: 1842614849
+INFO: Loaded 1 modules   (36 inline 8-bit counters): 36 [0x649f7ddc8f38, 0x649f7ddc8f5c), 
+INFO: Loaded 1 PC tables (36 PCs): 36 [0x649f7ddc8f60,0x649f7ddc91a0), 
+INFO: -fork=6: fuzzing in separate process(s)
+INFO: -fork=6: 10 seed inputs, starting to fuzz in /tmp/libFuzzerTemp.FuzzWithFork951556.dir
+#0: cov: 27 ft: 27 corp: 10 exec/s 0 oom/timeout/crash: 0/0/0 time: 0s job: 3 dft_time: 0
+#0: cov: 27 ft: 27 corp: 10 exec/s 0 oom/timeout/crash: 0/0/1 time: 0s job: 7 dft_time: 0
+#54: cov: 27 ft: 27 corp: 10 exec/s 0 oom/timeout/crash: 0/0/2 time: 0s job: 1 dft_time: 0
+  NEW_FUNC: 0x649f7dd868b0 in ParseVendorConfigTable /mnt/c/Users/Manas/Downloads/Auto Job Applier/Total Job Application process flow/projects/uefi-driver-fuzzer/fuzz/../VendorConfigPkg/Common/VendorConfigParser.c:30
+==951571==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60200000137c at pc 0x565e92aef3cc bp 0x7ffe922320f0 sp 0x7ffe922320e8
+#78: cov: 38 ft: 33 corp: 15 exec/s 0 oom/timeout/crash: 0/0/3 time: 1s job: 2 dft_time: 0
+==951572==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000000b38 at pc 0x5c4da416d3cc bp 0x7ffe072b9a30 sp 0x7ffe072b9a28
+#98: cov: 38 ft: 33 corp: 15 exec/s 0 oom/timeout/crash: 0/0/4 time: 1s job: 6 dft_time: 0
+==951578==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x6020000006be at pc 0x5958ac7f04ff bp 0x7fff5c172a90 sp 0x7fff5c172a88
+#150: cov: 38 ft: 33 corp: 15 exec/s 0 oom/timeout/crash: 0/0/5 time: 1s job: 5 dft_time: 0
+==951576==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000000cbc at pc 0x5b51493684ff bp 0x7ffcda700950 sp 0x7ffcda700948
+#189: cov: 42 ft: 37 corp: 18 exec/s 0 oom/timeout/crash: 0/0/6 time: 1s job: 4 dft_time: 0
+==951575==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x6020000012dc at pc 0x5f22285593cc bp 0x7ffe0d35dc30 sp 0x7ffe0d35dc28
+#216: cov: 43 ft: 38 corp: 19 exec/s 0 oom/timeout/crash: 0/0/7 time: 1s job: 8 dft_time: 0
+...
+#539897: cov: 58 ft: 136 corp: 98 exec/s 0 oom/timeout/crash: 0/0/26292 time: 479s job: 26293 dft_time: 0
+==1048951==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x6040000023b9 at pc 0x5985324db4ff bp 0x7fffac473d10 sp 0x7fffac473d08
+#539919: cov: 58 ft: 136 corp: 98 exec/s 0 oom/timeout/crash: 0/0/26293 time: 479s job: 26294 dft_time: 0
+==1048957==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60200000081c at pc 0x574efef674ff bp 0x7ffc469bfff0 sp 0x7ffc469bffe8
+#539919: cov: 58 ft: 136 corp: 98 exec/s 0 oom/timeout/crash: 0/0/26294 time: 479s job: 26297 dft_time: 0
+#539919: cov: 58 ft: 136 corp: 98 exec/s 0 oom/timeout/crash: 0/0/26295 time: 479s job: 26299 dft_time: 0
+#539931: cov: 58 ft: 136 corp: 98 exec/s 0 oom/timeout/crash: 0/0/26296 time: 480s job: 26295 dft_time: 0
+==1048963==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x604000001f39 at pc 0x58c4f8a8b57e bp 0x7ffcff9c40f0 sp 0x7ffcff9c40e8
+INFO: fuzzed for 480 seconds, wrapping up soon
+INFO: exiting: 1 time: 480s
+
+=== Attempt 2: stopped at 1508s (of a planned 5400s), -fork=6, -rss_limit_mb=0 ===
+INFO: Running with entropic power schedule (0xFF, 100).
+INFO: Seed: 2662800921
+INFO: Loaded 1 modules   (36 inline 8-bit counters): 36 [0x597c9a838f38, 0x597c9a838f5c), 
+INFO: Loaded 1 PC tables (36 PCs): 36 [0x597c9a838f60,0x597c9a8391a0), 
+INFO: -fork=6: fuzzing in separate process(s)
+INFO: -fork=6: 86 seed inputs, starting to fuzz in /tmp/libFuzzerTemp.FuzzWithFork1049271.dir
+#0: cov: 136 ft: 136 corp: 86 exec/s 0 oom/timeout/crash: 0/0/0 time: 0s job: 2 dft_time: 0
+#0: cov: 136 ft: 136 corp: 86 exec/s 0 oom/timeout/crash: 0/0/1 time: 0s job: 3 dft_time: 0
+#18: cov: 136 ft: 136 corp: 86 exec/s 0 oom/timeout/crash: 0/0/2 time: 0s job: 4 dft_time: 0
+==1049294==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000000700 at pc 0x590f00cb13cc bp 0x7ffc571796b0 sp 0x7ffc571796a8
+...
+==1403307==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x604000003b78 at pc 0x5b089debe544 bp 0x7ffdf89cdfb0 sp 0x7ffdf89cdfa8
+#1915282: cov: 154 ft: 158 corp: 107 exec/s 0 oom/timeout/crash: 0/0/86872 time: 1508s job: 86871 dft_time: 0
+==1403305==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x604000004379 at pc 0x5fc20419f4e2 bp 0x7ffccb78bb30 sp 0x7ffccb78bb28
+#1915282: cov: 154 ft: 158 corp: 107 exec/s 0 oom/timeout/crash: 0/0/86873 time: 1508s job: 86876 dft_time: 0
+#1915311: cov: 154 ft: 158 corp: 107 exec/s 0 oom/timeout/crash: 0/0/86874 time: 1508s job: 86873 dft_time: 0
+==1403311==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x603000000986 at pc 0x5b35de29d4e2 bp 0x7ffd4ebbf230 sp 0x7ffd4ebbf228
+#1915324: cov: 154 ft: 158 corp: 107 exec/s 0 oom/timeout/crash: 0/0/86875 time: 1508s job: 86874 dft_time: 0
+==1403313==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x604000002279 at pc 0x58ac1d24d4e2 bp 0x7ffd0a856ab0 sp 0x7ffd0a856aa8
+#1915324: cov: 154 ft: 158 corp: 107 exec/s 0 oom/timeout/crash: 0/0/86876 time: 1508s job: 86878 dft_time: 0
+#1915324: cov: 154 ft: 158 corp: 107 exec/s 0 oom/timeout/crash: 0/0/86877 time: 1508s job: 86879 dft_time: 0

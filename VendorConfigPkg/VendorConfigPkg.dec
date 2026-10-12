@@ -1,0 +1,15 @@
+## @file
+#  VendorConfigPkg package declaration.
+##
+
+[Defines]
+  DEC_SPECIFICATION = 0x00010005
+  PACKAGE_NAME      = VendorConfigPkg
+  PACKAGE_GUID      = 7f6b1f6e-9b3a-4b7e-8e9a-2c7b6a3f1a10
+  PACKAGE_VERSION   = 0.1
+
+[Includes]
+  Common
+
+[Guids]
+  gVendorConfigTableGuid = { 0xa1b2c3d4, 0xe5f6, 0x47a8, { 0x9b, 0x0c, 0x1d, 0x2e, 0x3f, 0x4a, 0x5b, 0x6c }}

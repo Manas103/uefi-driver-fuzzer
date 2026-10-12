@@ -1,0 +1,20 @@
+BdsDxe: failed to load Boot0001 "UEFI QEMU DVD-ROM QM00005 " from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x2,0xFFFF,0x0): Not Found
+BdsDxe: loading Boot0002 "UEFI QEMU HARDDISK QM00001 " from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x0,0xFFFF,0x0)
+BdsDxe: starting Boot0002 "UEFI QEMU HARDDISK QM00001 " from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x0,0xFFFF,0x0)
+UEFI Interactive Shell v2.2
+EDK II
+UEFI v2.70 (EDK II, 0x00010000)
+Mapping table
+      FS0: Alias(s):HD0a65535a1:;BLK1:
+          PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x0,0xFFFF,0x0)/HD(1,MBR,0xBE1AFDFA,0x3F,0xFBFC1)
+     BLK0: Alias(s):
+          PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x0,0xFFFF,0x0)
+     BLK2: Alias(s):
+          PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x2,0xFFFF,0x0)
+Press ESC in 5 seconds to skip startup.nsh or any other key to continue.
+VendorConfigDxe: ParseStatus=0
+VendorConfigDxe: DeviceCount=2 StringBytesTotal=11 ChecksumValid=1
+VendorConfigDxe: PARSE_OK
+Image 'FS0:\VendorConfigDxe.efi' loaded at DFF9000 - Success
+BOOT_SCRIPT_DONE
+Shell>

@@ -1,0 +1,16 @@
+# EDK II build output (never committed; see scripts/build_dxe.sh and
+# .github/workflows/ci.yml for the exact commands that regenerate it)
+build/
+
+# Host fuzzer/test binaries (regenerate: see README Building and running)
+fuzz/fuzzer
+fuzz/fuzzer_fixed
+test_valid_parsing
+test_regressions
+*.o
+
+# Fuzzer scratch state, never committed: fuzz/crashes/ (the 7 minimized
+# reproducers) is tracked, but the raw campaign's crash dump directory
+# and corpus growth are not.
+fuzz/findings/
+fuzz/unique_crashes/
